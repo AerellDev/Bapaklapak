@@ -1,4 +1,4 @@
-## bapaklapak
+## Bapaklapak
 
 Aplikasi Jual Beli Online Yang Di Buat Oleh Fern Aerell
 
@@ -9,5 +9,8 @@ Desain : https://www.figma.com/file/3SwRF8iGlktldU1lxJ1dBL/BapakLapak-Apps?node-
 # Fitur
 - Aplikasi sudah terhubung ke database server.
 - Kolom pencarian sudah bisa di gunakan.
-- Barang sudah bisa di hapus.
+- Sudah bisa menghapus barang.
+- Sudah bisa mengedit barang.
 - Sudah bisa menambah barang.
+- Sudah bisa mendeteksi koneksi di perangkat android.
+- Menambahkan Splashscreen

@@ -46,7 +46,6 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
     TextEditingController stok = TextEditingController(text: widget.stokBarang);
     TextEditingController deskripsi =
         TextEditingController(text: widget.deskripsiBarang);
-    print("Build");
 
     final barangProvider = Provider.of<BarangProvider>(context, listen: false);
 
@@ -115,6 +114,9 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                                           widget.gantiGambar = true;
                                         });
                                         Navigator.of(context).pop();
+                                      },
+                                      tombolTidak: () {
+                                        
                                       },
                                     );
                                   },

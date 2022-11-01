@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'package:bapaklapak/provider/akun_provider.dart';
 import 'package:bapaklapak/provider/barang_provider.dart';
 import 'package:bapaklapak/screen/edit_barang.dart';
 import 'package:bapaklapak/widget/dialog.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../tambahan.dart';
 import '../widget/tempat_barang.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -14,7 +16,9 @@ class ShopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    cekKoneksi(context, () {},);
     final barangProvider = Provider.of<BarangProvider>(context, listen: false);
+    final akunProvider = Provider.of<AkunProvider>(context, listen: false);
     TextEditingController cariForm = TextEditingController();
     barangProvider.ambilBarangDariDatabase();
     return Scaffold(
@@ -38,40 +42,63 @@ class ShopScreen extends StatelessWidget {
         //Logo
         actions: [
           //Popup Menu Di AppBar
-          PopupMenuButton(
-            icon: Image.asset(
-              'assets/images/lg.png',
-              fit: BoxFit.contain,
+          if(akunProvider.isLogin)...[
+            PopupMenuButton(
+              icon: Image.asset(
+                'assets/images/lg.png',
+                fit: BoxFit.contain,
+              ),
+              iconSize: 37,
+              itemBuilder: (context) {
+                return <PopupMenuEntry>[
+                  const PopupMenuItem(value: 0, child: Text("Profil")),
+                  const PopupMenuItem(value: 1, child: Text("Tambah Barang")),
+                  const PopupMenuItem(value: 2, child: Text("Database Akun")),
+                  const PopupMenuDivider(
+                    height: 5,
+                  ),
+                  const PopupMenuItem(value: 3, child: Text("Logout")),
+                ];
+              },
+              onSelected: (value) {
+                switch (value) {
+                  case 0:
+                    print("Halaman Profil");
+                    break;
+                  case 1:
+                    Navigator.of(context).pushReplacementNamed("/tambahbarang");
+                    break;
+                  case 2:
+                    print("Halaman Database Akun");
+                    break;
+                  case 3:
+                    print("Halaman Logout");
+                    break;
+                }
+              },
             ),
-            iconSize: 37,
-            itemBuilder: (context) {
-              return <PopupMenuEntry>[
-                const PopupMenuItem(value: 0, child: Text("Profil")),
-                const PopupMenuItem(value: 1, child: Text("Tambah Barang")),
-                const PopupMenuItem(value: 2, child: Text("Database Akun")),
-                const PopupMenuDivider(
-                  height: 5,
-                ),
-                const PopupMenuItem(value: 3, child: Text("Logout")),
-              ];
-            },
-            onSelected: (value) {
-              switch (value) {
-                case 0:
-                  print("Halaman Profil");
-                  break;
-                case 1:
-                  Navigator.of(context).pushReplacementNamed("/tambahbarang");
-                  break;
-                case 2:
-                  print("Halaman Database Akun");
-                  break;
-                case 3:
-                  print("Halaman Logout");
-                  break;
-              }
-            },
-          ),
+          ]else...[
+            PopupMenuButton(
+              icon: Image.asset(
+                'assets/images/lg.png',
+                fit: BoxFit.contain,
+              ),
+              iconSize: 37,
+              itemBuilder: (context) {
+                return <PopupMenuEntry>[
+                  const PopupMenuItem(value: 0, child: Text("Login")),
+                ];
+              },
+              onSelected: (value) {
+                switch (value) {
+                  case 0:
+                    Navigator.of(context).pushReplacementNamed("/login");
+                    break;
+                }
+              },
+            ),
+          ],
+          
         ],
       ),
       body: Column(
@@ -159,7 +186,12 @@ class ShopScreen extends StatelessWidget {
                     tombolHapus: () {
                       showDialog(context: context, 
                         builder: (context) {
-                          return BLDialogKonfirmasi(pesan: 'Yakin Ingin Menghapus Barang Ini?', tombolYa: () {
+                          return BLDialogKonfirmasi(
+                            pesan: 'Yakin Ingin Menghapus Barang Ini?', 
+                            tombolTidak: () {
+                              
+                            },
+                            tombolYa: () {
                             barangProvider.hapusBarang(context, int.parse(value.barang[index]['id']));
                           },);
                         },

@@ -17,6 +17,7 @@ class BarangProvider with ChangeNotifier {
   int get jumlahBarang => _barang.length;
 
   ambilBarangDariDatabase() async {
+
     Uri urlAPI = Uri.parse(
         "https://bapaklapak.000webhostapp.com/flutter_api/getdatabarang.php");
 
@@ -33,6 +34,7 @@ class BarangProvider with ChangeNotifier {
   }
 
   cariBarang(String cari) async {
+
     Uri urlAPI = Uri.parse(
         "https://bapaklapak.000webhostapp.com/flutter_api/getdatabarang.php?cari=$cari");
 
@@ -49,6 +51,7 @@ class BarangProvider with ChangeNotifier {
   }
 
   hapusBarang(BuildContext context, int idBarang) async {
+
     lodingDoang(context, 'Menghapus', 500);
 
     Uri urlAPI = Uri.parse(

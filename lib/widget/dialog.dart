@@ -9,9 +9,9 @@ class BLDialogKonfirmasi extends StatelessWidget {
   String textTombolYa;
   String textTombolTidak;
   Function() tombolYa;
-  Function()? tombolTidak;
+  Function() tombolTidak;
 
-  BLDialogKonfirmasi({super.key, required this.pesan, required this.tombolYa, this.tombolTidak, this.textTombolYa = "Ya", this.textTombolTidak = "Tidak" });
+  BLDialogKonfirmasi({super.key, required this.pesan, required this.tombolYa,required this.tombolTidak, this.textTombolYa = "Ya", this.textTombolTidak = "Tidak" });
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class BLDialogKonfirmasi extends StatelessWidget {
                                 MaterialStateProperty.all(HexColor("969696")),
                           ),
                           onPressed: () {
-                            tombolTidak!();
+                            tombolTidak();
                             Navigator.of(context).pop();
                           },
                           child: Text(

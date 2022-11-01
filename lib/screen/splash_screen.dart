@@ -4,7 +4,6 @@ import 'package:bapaklapak/tambahan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,13 +11,14 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    cekKoneksi().then((value) {
-      if(value) {
-        Timer(Duration(seconds: 1), () {
-          Navigator.of(context).pushReplacementNamed('/shop');
-        },);
-      }
-    });
+    cekKoneksi(context, () {
+      Timer(
+        Duration(seconds: 1),
+        () {
+          Navigator.of(context).pushReplacementNamed("/shop");
+        },
+      );
+    },);
 
     return Scaffold(
       body: Stack(

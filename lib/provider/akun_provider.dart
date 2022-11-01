@@ -4,11 +4,13 @@ import 'package:bapaklapak/tambahan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
-class Akun with ChangeNotifier {
+class AkunProvider with ChangeNotifier {
 
   List _akun = [];
 
   List get akun => _akun;
+
+  bool isLogin = false;
 
   login(BuildContext context, String email, String sandi) async {
 
@@ -21,9 +23,14 @@ class Akun with ChangeNotifier {
     }else{
       _akun = json.decode(hasil.body);
       print(hasil.body);
+      isLogin = true;
       notifDoang(context, 'Login Berhasil', 700);
     }
+  }
 
+  logout() {
+    akun.clear();
+    isLogin = false;
   }
 
 }

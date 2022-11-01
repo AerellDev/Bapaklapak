@@ -39,7 +39,7 @@ dependencies:
   material_color_generator: ^1.1.0
   provider: ^6.0.4
   responsive_framework: ^0.2.0
-  internet_connection_checker: ^1.0.0+1
+  connectivity_plus: ^3.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0

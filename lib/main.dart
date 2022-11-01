@@ -1,5 +1,7 @@
 import 'package:bapaklapak/provider/barang_provider.dart';
+import 'package:bapaklapak/screen/login_screen.dart';
 import 'package:bapaklapak/screen/shop.dart';
+import 'package:bapaklapak/screen/sigin_screen.dart';
 import 'package:bapaklapak/screen/splash_screen.dart';
 import 'package:bapaklapak/screen/tambah_barang.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +10,12 @@ import 'package:material_color_generator/material_color_generator.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+import 'provider/akun_provider.dart';
+
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => BarangProvider(),)
+    ChangeNotifierProvider(create: (context) => BarangProvider(),),
+    ChangeNotifierProvider(create: (context) => AkunProvider(),)
   ], child: const BapakLapak(),));
 }
 
@@ -38,6 +43,8 @@ class BapakLapak extends StatelessWidget {
       routes: {
         "/shop":(context) => ShopScreen(),
         "/tambahbarang":(context) => TambahBarangScreen(),
+        "/login":(context) => LoginScreen(),
+        "/sigin":(context) => SiginScreen()
       },
     );
   }
