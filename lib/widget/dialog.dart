@@ -56,6 +56,7 @@ class BLDialogKonfirmasi extends StatelessWidget {
                       child: ElevatedButton(
                           onPressed: () {
                             tombolYa();
+                            Navigator.of(context).pop();
                           },
                           child: Text(
                             textTombolYa,

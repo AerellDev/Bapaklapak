@@ -16,7 +16,10 @@ class ShopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    cekKoneksi(context, () {},);
+    cekKoneksi(
+      context,
+      () {},
+    );
     final barangProvider = Provider.of<BarangProvider>(context, listen: false);
     final akunProvider = Provider.of<AkunProvider>(context, listen: false);
     TextEditingController cariForm = TextEditingController();
@@ -42,7 +45,7 @@ class ShopScreen extends StatelessWidget {
         //Logo
         actions: [
           //Popup Menu Di AppBar
-          if(akunProvider.isLogin)...[
+          if (akunProvider.isLogin) ...[
             PopupMenuButton(
               icon: Image.asset(
                 'assets/images/lg.png',
@@ -72,12 +75,12 @@ class ShopScreen extends StatelessWidget {
                     print("Halaman Database Akun");
                     break;
                   case 3:
-                    print("Halaman Logout");
+                    akunProvider.logout();
                     break;
                 }
               },
             ),
-          ]else...[
+          ] else ...[
             PopupMenuButton(
               icon: Image.asset(
                 'assets/images/lg.png',
@@ -98,7 +101,6 @@ class ShopScreen extends StatelessWidget {
               },
             ),
           ],
-          
         ],
       ),
       body: Column(
@@ -157,58 +159,70 @@ class ShopScreen extends StatelessWidget {
           ),
           //Tempat Barang
           Expanded(
-            child: Consumer<BarangProvider>(
-              builder: (context2, value, child) => (value.jumlahBarang != 0) ? ListView.builder(
-                itemCount: value.jumlahBarang,
-                itemBuilder: (context2, index) {
-                  return TempatBarang(
-                    idBarang: value.barang[index]['id'],
-                    fotoBarang: value.barang[index]['foto'],
-                    namaBarang: value.barang[index]['nama'],
-                    deskripsiBarang: value.barang[index]['deskripsi'],
-                    stokBarang: value.barang[index]['stok'],
-                    hargaBarang: value.barang[index]['harga'],
-                    tombolBeli: () {
-                      
-                    },
-                    tombolEdit: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                        return EditBarangScreen(
-                          idBarang: value.barang[index]['id'], 
-                          fotoBarang: value.barang[index]['foto'], 
-                          namaBarang: value.barang[index]['nama'], 
-                          hargaBarang: value.barang[index]['harga'], 
-                          stokBarang: value.barang[index]['stok'], 
-                          deskripsiBarang: value.barang[index]['deskripsi']
-                          );
-                      },));
-                    },
-                    tombolHapus: () {
-                      showDialog(context: context, 
-                        builder: (context) {
-                          return BLDialogKonfirmasi(
-                            pesan: 'Yakin Ingin Menghapus Barang Ini?', 
-                            tombolTidak: () {
-                              
-                            },
-                            tombolYa: () {
-                            barangProvider.hapusBarang(context, int.parse(value.barang[index]['id']));
-                          },);
-                        },
-                      );
-                    },
-                  );
-                },
-              ) : Center(
-                child:  Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("Tidak Ada Barang", style: TextStyle(color: Color.fromARGB(255, 126, 126, 126), fontSize: 16, fontWeight: FontWeight.bold),)
-                  ],
-                ),
-              )
-            )
-          )
+              child: Consumer<BarangProvider>(
+                  builder: (context2, value, child) => (value.jumlahBarang != 0)
+                      ? ListView.builder(
+                          itemCount: value.jumlahBarang,
+                          itemBuilder: (context2, index) {
+                            return TempatBarang(
+                              idBarang: value.barang[index]['id'],
+                              fotoBarang: value.barang[index]['foto'],
+                              namaBarang: value.barang[index]['nama'],
+                              deskripsiBarang: value.barang[index]['deskripsi'],
+                              stokBarang: value.barang[index]['stok'],
+                              hargaBarang: value.barang[index]['harga'],
+                              tombolBeli: () {},
+                              tombolEdit: () {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) {
+                                    return EditBarangScreen(
+                                        idBarang: value.barang[index]['id'],
+                                        fotoBarang: value.barang[index]['foto'],
+                                        namaBarang: value.barang[index]['nama'],
+                                        hargaBarang: value.barang[index]
+                                            ['harga'],
+                                        stokBarang: value.barang[index]['stok'],
+                                        deskripsiBarang: value.barang[index]
+                                            ['deskripsi']);
+                                  },
+                                ));
+                              },
+                              tombolHapus: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return BLDialogKonfirmasi(
+                                      pesan:
+                                          'Yakin Ingin Menghapus Barang Ini?',
+                                      tombolTidak: () {},
+                                      tombolYa: () {
+                                        barangProvider.hapusBarang(
+                                            context,
+                                            int.parse(
+                                                value.barang[index]['id']));
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        )
+                      : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "Tidak Ada Barang",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 126, 126, 126),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        )))
         ],
       ),
     );

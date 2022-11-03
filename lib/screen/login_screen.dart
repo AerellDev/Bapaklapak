@@ -1,14 +1,17 @@
+import 'package:bapaklapak/provider/akun_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final akunProvider = Provider.of<AkunProvider>(context, listen: false);
     TextEditingController email = TextEditingController();
     TextEditingController sandi = TextEditingController();
     return Scaffold(
@@ -120,7 +123,9 @@ class LoginScreen extends StatelessWidget {
                         height: 42,
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              akunProvider.login(context, email.text, sandi.text);
+                            },
                             child: const Text(
                               "Masuk",
                               style: TextStyle(

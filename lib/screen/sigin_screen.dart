@@ -1,11 +1,19 @@
+import 'package:bapaklapak/provider/akun_provider.dart';
+import 'package:bapaklapak/tambahan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:provider/provider.dart';
 
 class SiginScreen extends StatefulWidget {
-  const SiginScreen({super.key});
+  TextEditingController email = TextEditingController();
+  TextEditingController sandi = TextEditingController();
+  TextEditingController ulangiSandi = TextEditingController();
+  TextEditingController date = TextEditingController();
+
+  SiginScreen({super.key});
 
   @override
   State<SiginScreen> createState() => _SiginScreenState();
@@ -14,11 +22,7 @@ class SiginScreen extends StatefulWidget {
 class _SiginScreenState extends State<SiginScreen> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController sandi = TextEditingController();
-    TextEditingController ulangiSandi = TextEditingController();
-    TextEditingController date = TextEditingController();
-
+    final akunProvider = Provider.of<AkunProvider>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -75,7 +79,7 @@ class _SiginScreenState extends State<SiginScreen> {
                           border: Border.all(color: Colors.black, width: 0.5),
                           borderRadius: BorderRadius.circular(9)),
                       child: TextFormField(
-                        controller: email,
+                        controller: widget.email,
                         style: const TextStyle(
                           fontSize: 17,
                         ),
@@ -102,7 +106,7 @@ class _SiginScreenState extends State<SiginScreen> {
                           border: Border.all(color: Colors.black, width: 0.5),
                           borderRadius: BorderRadius.circular(9)),
                       child: TextFormField(
-                        controller: sandi,
+                        controller: widget.sandi,
                         style: const TextStyle(
                           fontSize: 17,
                         ),
@@ -131,7 +135,7 @@ class _SiginScreenState extends State<SiginScreen> {
                           border: Border.all(color: Colors.black, width: 0.5),
                           borderRadius: BorderRadius.circular(9)),
                       child: TextFormField(
-                        controller: ulangiSandi,
+                        controller: widget.ulangiSandi,
                         style: const TextStyle(
                           fontSize: 17,
                         ),
@@ -165,7 +169,7 @@ class _SiginScreenState extends State<SiginScreen> {
                             setState(() {
                               print(
                                   "${value.year}-${value.month}-${value.day}");
-                              date.text =
+                              widget.date.text =
                                   "${value.year}-${value.month}-${value.day}";
                             });
                           }
@@ -178,7 +182,7 @@ class _SiginScreenState extends State<SiginScreen> {
                             border: Border.all(color: Colors.black, width: 0.5),
                             borderRadius: BorderRadius.circular(9)),
                         child: TextFormField(
-                          controller: date,
+                          controller: widget.date,
                           style: const TextStyle(
                             fontSize: 17,
                           ),
@@ -203,7 +207,19 @@ class _SiginScreenState extends State<SiginScreen> {
                         height: 42,
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if(widget.email.text == "") {
+                                notifDoang(context, "Email tidak boleh kosong.", 700);
+                              }else if(widget.sandi.text == "") {
+                                notifDoang(context, "Sandi tidak boleh kosong.", 700);
+                              }else if(widget.ulangiSandi.text == "") {
+                                notifDoang(context, "Ulangi sandi salah.", 700);
+                              }else if(widget.date.text == "") {
+                                notifDoang(context, "Tanggal lahir tidak boleh kosong.", 700);
+                              }else{
+                                akunProvider.sigin(context, widget.email.text, widget.sandi.text, widget.ulangiSandi.text, widget.date.text);
+                              }
+                            },
                             child: const Text(
                               "Daftar",
                               style: TextStyle(
