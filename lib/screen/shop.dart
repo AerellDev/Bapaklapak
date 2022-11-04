@@ -55,8 +55,10 @@ class ShopScreen extends StatelessWidget {
               itemBuilder: (context) {
                 return <PopupMenuEntry>[
                   const PopupMenuItem(value: 0, child: Text("Profil")),
-                  const PopupMenuItem(value: 1, child: Text("Tambah Barang")),
-                  const PopupMenuItem(value: 2, child: Text("Database Akun")),
+                  if (akunProvider.akun['type_akun'] == "admin") ...[
+                    const PopupMenuItem(value: 1, child: Text("Tambah Barang")),
+                    const PopupMenuItem(value: 2, child: Text("Database Akun")),
+                  ],
                   const PopupMenuDivider(
                     height: 5,
                   ),
@@ -75,7 +77,7 @@ class ShopScreen extends StatelessWidget {
                     print("Halaman Database Akun");
                     break;
                   case 3:
-                    akunProvider.logout();
+                    akunProvider.logout(context);
                     break;
                 }
               },

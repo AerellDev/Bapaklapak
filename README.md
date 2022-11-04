@@ -14,3 +14,5 @@ Desain : https://www.figma.com/file/3SwRF8iGlktldU1lxJ1dBL/BapakLapak-Apps?node-
 - Sudah bisa menambah barang.
 - Sudah bisa mendeteksi koneksi di perangkat android.
 - Menambahkan Splashscreen
+- Sudah bisa mendaftar akun
+- Sudah bisa login dan logout

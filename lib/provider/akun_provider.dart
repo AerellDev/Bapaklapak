@@ -61,9 +61,11 @@ class AkunProvider with ChangeNotifier {
     }
   }
 
-  logout() {
+  logout(BuildContext context) {
     _akun = null;
     isLogin = false;
+    notifDoang(context, "Logout Berhasil", 700);
     notifyListeners();
+    Navigator.of(context).pushReplacementNamed("/shop");
   }
 }
