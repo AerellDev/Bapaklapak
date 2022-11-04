@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //Untuk Membuat Text Uang
 textUang(int uang) {
@@ -42,7 +43,7 @@ lodingDoang(BuildContext context, String pesan, int duration) {
 cekKoneksi(BuildContext context, Function() eksekusi) async {
   var result = await Connectivity().checkConnectivity();
 
-  if(result == ConnectivityResult.none) {
+  if (result == ConnectivityResult.none) {
     showDialog(
       context: context,
       builder: (context) {
@@ -50,9 +51,10 @@ cekKoneksi(BuildContext context, Function() eksekusi) async {
           pesan: "Tidak ada koneksi internet",
           textTombolYa: "Coba Lagi",
           tombolYa: () {
-            cekKoneksi(context, () {
-              
-            },);
+            cekKoneksi(
+              context,
+              () {},
+            );
             Navigator.of(context).pop();
           },
           textTombolTidak: "Keluar",
@@ -62,7 +64,7 @@ cekKoneksi(BuildContext context, Function() eksekusi) async {
         );
       },
     );
-  }else{
+  } else {
     eksekusi();
   }
 }

@@ -74,7 +74,18 @@ class ShopScreen extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed("/tambahbarang");
                     break;
                   case 2:
-                    print("Halaman Database Akun");
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return BLDialogPemberitahuanWithLink(
+                          pesan: "Fitur hanya tersedia di",
+                          tombolOk: () {},
+                          textTombolOk: "Oke",
+                          link: "https://bapaklapak.000webhostapp.com",
+                          textLink: "Website BapakLapak",
+                        );
+                      },
+                    );
                     break;
                   case 3:
                     akunProvider.logout(context);
