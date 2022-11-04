@@ -48,7 +48,7 @@ class BapakLapak extends StatelessWidget {
           primaryColor: HexColor('DD3B3B'),
           primarySwatch: generateMaterialColor(color: HexColor('DD3B3B'))),
       debugShowCheckedModeBanner: false,
-      home: ShopScreen(),
+      home: SplashScreen(),
       routes: {
         "/shop": (context) => ShopScreen(),
         "/tambahbarang": (context) => TambahBarangScreen(),
