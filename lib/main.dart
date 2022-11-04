@@ -1,4 +1,5 @@
 import 'package:bapaklapak/provider/barang_provider.dart';
+import 'package:bapaklapak/screen/akun_settings.dart';
 import 'package:bapaklapak/screen/login_screen.dart';
 import 'package:bapaklapak/screen/shop.dart';
 import 'package:bapaklapak/screen/sigin_screen.dart';
@@ -11,12 +12,20 @@ import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import 'provider/akun_provider.dart';
+import 'screen/akun_screen.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => BarangProvider(),),
-    ChangeNotifierProvider(create: (context) => AkunProvider(),)
-  ], child: const BapakLapak(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => BarangProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => AkunProvider(),
+      )
+    ],
+    child: const BapakLapak(),
+  ));
 }
 
 class BapakLapak extends StatelessWidget {
@@ -39,12 +48,13 @@ class BapakLapak extends StatelessWidget {
           primaryColor: HexColor('DD3B3B'),
           primarySwatch: generateMaterialColor(color: HexColor('DD3B3B'))),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: ShopScreen(),
       routes: {
-        "/shop":(context) => ShopScreen(),
-        "/tambahbarang":(context) => TambahBarangScreen(),
-        "/login":(context) => LoginScreen(),
-        "/sigin":(context) => SiginScreen()
+        "/shop": (context) => ShopScreen(),
+        "/tambahbarang": (context) => TambahBarangScreen(),
+        "/login": (context) => LoginScreen(),
+        "/sigin": (context) => SiginScreen(),
+        "/akunscreen": (context) => AkunScreen(),
       },
     );
   }

@@ -16,8 +16,19 @@ class BarangProvider with ChangeNotifier {
 
   int get jumlahBarang => _barang.length;
 
-  ambilBarangDariDatabase() async {
+  beliBarang(BuildContext context, String idBarang, String idAkun,
+      String harga) async {
+    Uri urlAPI = Uri.parse(
+        "https://bapaklapak.000webhostapp.com/flutter_api/beli_barang.php?beli=$idBarang&&id=$idAkun&&harga=$harga");
 
+    var hasil = await http.get(urlAPI);
+
+    notifDoang(context, hasil.body, 700);
+
+    ambilBarangDariDatabase();
+  }
+
+  ambilBarangDariDatabase() async {
     Uri urlAPI = Uri.parse(
         "https://bapaklapak.000webhostapp.com/flutter_api/getdatabarang.php");
 
@@ -34,7 +45,6 @@ class BarangProvider with ChangeNotifier {
   }
 
   cariBarang(String cari) async {
-
     Uri urlAPI = Uri.parse(
         "https://bapaklapak.000webhostapp.com/flutter_api/getdatabarang.php?cari=$cari");
 
@@ -51,7 +61,6 @@ class BarangProvider with ChangeNotifier {
   }
 
   hapusBarang(BuildContext context, int idBarang) async {
-
     lodingDoang(context, 'Menghapus', 500);
 
     Uri urlAPI = Uri.parse(
@@ -82,7 +91,8 @@ class BarangProvider with ChangeNotifier {
 
     var hasil = await http.MultipartRequest('POST', urlAPI);
 
-    var image = await http.MultipartFile.fromPath('foto_barang', foto_barang.path);
+    var image =
+        await http.MultipartFile.fromPath('foto_barang', foto_barang.path);
 
     if (foto_barang != null) {
       hasil.fields['nama_barang'] = nama_barang;
@@ -113,7 +123,8 @@ class BarangProvider with ChangeNotifier {
 
     var hasil = await http.MultipartRequest('POST', urlAPI);
 
-    var image = await http.MultipartFile.fromPath('foto_barang', foto_barang.path);
+    var image =
+        await http.MultipartFile.fromPath('foto_barang', foto_barang.path);
 
     if (foto_barang != null) {
       hasil.fields['ganti_gambar'] = "";
@@ -146,17 +157,17 @@ class BarangProvider with ChangeNotifier {
 
     var hasil = await http.MultipartRequest('POST', urlAPI);
 
-      hasil.fields['id'] = id;
-      hasil.fields['foto'] = foto;
-      hasil.fields['nama_barang'] = nama_barang;
-      hasil.fields['harga_barang'] = harga_barang;
-      hasil.fields['stok'] = stok;
-      hasil.fields['deskripsi'] = deskripsi;
+    hasil.fields['id'] = id;
+    hasil.fields['foto'] = foto;
+    hasil.fields['nama_barang'] = nama_barang;
+    hasil.fields['harga_barang'] = harga_barang;
+    hasil.fields['stok'] = stok;
+    hasil.fields['deskripsi'] = deskripsi;
 
-      await hasil.send().then((result) {
-        http.Response.fromStream(result).then((response) {
-          notifDoang(context, response.body, 700);
-        });
+    await hasil.send().then((result) {
+      http.Response.fromStream(result).then((response) {
+        notifDoang(context, response.body, 700);
       });
+    });
   }
 }

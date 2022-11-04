@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../provider/akun_provider.dart';
 
 class BLDialogKonfirmasi extends StatelessWidget {
   String pesan;
@@ -351,6 +354,132 @@ class BLDialogPickImage extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class BLDialogTopUp extends StatelessWidget {
+  BLDialogTopUp({super.key});
+
+  TextEditingController code = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    final akunProvider = Provider.of<AkunProvider>(context, listen: false);
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(10),
+        height: 250,
+        width: 373,
+        decoration: BoxDecoration(
+            color: HexColor("F0F3F3"),
+            borderRadius: BorderRadius.circular(11),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 4,
+                  spreadRadius: 0,
+                  color: HexColor("000000"),
+                  offset: const Offset(5, 5))
+            ]),
+        child: Material(
+          color: Colors.transparent,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "  Isi Saldo",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "       Gift Code : ",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 42,
+                width: 331,
+                decoration: BoxDecoration(
+                    border: Border.all(color: HexColor("BDBDBD")),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(9)),
+                child: TextFormField(
+                  controller: code,
+                  decoration: InputDecoration(
+                      hintText: 'Masukkan Gift Code',
+                      hintStyle: TextStyle(
+                        fontSize: 17,
+                        color: Colors.black.withOpacity(0.5),
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 3, bottom: 10)),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                  height: 42,
+                  width: 331,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (code.text.isNotEmpty) {
+                          akunProvider.TopUp(
+                              context, code.text, akunProvider.akun['id']);
+                        } else {
+                          notifDoang(context, "Code tidak boleh kosong", 700);
+                        }
+                      },
+                      child: Text(
+                        "Top Up",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ))),
+              SizedBox(
+                height: 5,
+              ),
+              SizedBox(
+                  height: 42,
+                  width: 331,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(HexColor("969696")),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Kembali",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ))),
+            ],
+          ),
+        ),
       ),
     );
   }

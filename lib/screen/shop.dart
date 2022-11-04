@@ -68,7 +68,7 @@ class ShopScreen extends StatelessWidget {
               onSelected: (value) {
                 switch (value) {
                   case 0:
-                    print("Halaman Profil");
+                    Navigator.of(context).pushReplacementNamed("/akunscreen");
                     break;
                   case 1:
                     Navigator.of(context).pushReplacementNamed("/tambahbarang");
@@ -184,7 +184,13 @@ class ShopScreen extends StatelessWidget {
                               deskripsiBarang: value.barang[index]['deskripsi'],
                               stokBarang: value.barang[index]['stok'],
                               hargaBarang: value.barang[index]['harga'],
-                              tombolBeli: () {},
+                              tombolBeli: () {
+                                barangProvider.beliBarang(
+                                    context,
+                                    value.barang[index]['id'],
+                                    akunProvider.akun['id'],
+                                    value.barang[index]['harga']);
+                              },
                               tombolEdit: () {
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(

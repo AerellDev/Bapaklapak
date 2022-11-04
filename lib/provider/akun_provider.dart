@@ -13,6 +13,18 @@ class AkunProvider with ChangeNotifier {
 
   bool isLogin = false;
 
+  refresh() async {
+    if (_akun != null) {
+      Uri urlApi = Uri.parse(
+          "https://bapaklapak.000webhostapp.com/flutter_api/login.php?email=${_akun['email']}&&sandi=${_akun['sandi']}");
+
+      var hasil = await http.get(urlApi);
+
+      _akun = json.decode(hasil.body);
+      notifyListeners();
+    }
+  }
+
   login(BuildContext context, String email, String sandi) async {
     Uri urlApi = Uri.parse(
         "https://bapaklapak.000webhostapp.com/flutter_api/login.php?email=$email&&sandi=$sandi");
@@ -67,5 +79,41 @@ class AkunProvider with ChangeNotifier {
     notifDoang(context, "Logout Berhasil", 700);
     notifyListeners();
     Navigator.of(context).pushReplacementNamed("/shop");
+  }
+
+  TopUp(BuildContext context, String giftCode, String idAkun) async {
+    Uri urlApi = Uri.parse(
+        "https://bapaklapak.000webhostapp.com/flutter_api/topup.php?code=$giftCode&&id=$idAkun");
+
+    var hasil = await http.get(urlApi);
+
+    notifDoang(context, hasil.body, 800);
+
+    refresh();
+
+    Navigator.of(context).pop();
+  }
+
+  EditAkun(BuildContext context, String id, String email, String sandi,
+      String type_akun, String tanggal_lahir, String saldo) async {
+    Uri urlApi = Uri.parse(
+        "https://bapaklapak.000webhostapp.com/flutter_api/editakun.php?id=$id&&email=$email&&sandi=$sandi&&type_akun=$type_akun&&tanggal_lahir=$tanggal_lahir&&saldo=$saldo");
+
+    var hasil = await http.get(urlApi);
+
+    notifDoang(context, hasil.body, 800);
+
+    Uri urlApi2 = Uri.parse(
+        "https://bapaklapak.000webhostapp.com/flutter_api/login.php?email=$email&&sandi=$sandi");
+
+    var hasil2 = await http.get(urlApi2);
+
+    _akun = json.decode(hasil2.body);
+    print(_akun['email']);
+    print(_akun['sandi']);
+
+    notifyListeners();
+
+    Navigator.of(context).pushReplacementNamed("/akunscreen");
   }
 }
