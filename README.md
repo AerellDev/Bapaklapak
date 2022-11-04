@@ -2,10 +2,13 @@
 
 Aplikasi Jual Beli Online Yang Di Buat Oleh Fern Aerell
 
+Desain : https://www.figma.com/file/3SwRF8iGlktldU1lxJ1dBL/BapakLapak-Apps?node-id=0%3A1
+
 Website : https://bapaklapak.000webhostapp.com
 <br>Gift Code Generator(Buat kode TopUp) : https://bapaklapak.000webhostapp.com/gift_code_generator.php
 
-Desain : https://www.figma.com/file/3SwRF8iGlktldU1lxJ1dBL/BapakLapak-Apps?node-id=0%3A1
+Apk : https://drive.google.com/file/d/1uwSPD4TlxhEyYg1PxhOottd3S2_PDEhQ/view?usp=share_link
+
 
 # Fitur
 - Aplikasi sudah terhubung ke database server.
