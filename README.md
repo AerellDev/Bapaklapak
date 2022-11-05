@@ -17,13 +17,13 @@ Aplikasi Jual Beli Online Yang Di Buat Oleh Fern Aerell
 - Sudah bisa edit profil.
 - Sudah bisa membeli barang.
 
-# Teknologi yang di gunakan
+# Teknologi Yang Di Gunakan
 - Dart (Bahasa Pemograman)
 - Flutter (Framework)
 - PHP (API)
 - MYSQL (Database)
 
-# Hasil jadi nya
+# Hasil Jadi Nya
 - [Desain aplikasi nya di Figma](https://www.figma.com/file/3SwRF8iGlktldU1lxJ1dBL/BapakLapak-Apps?node-id=0%3A1)
 - [Versi Website Nya (Beda lagi)](https://bapaklapak.000webhostapp.com)
 - [Gift Code Generator(Buat kode TopUp)](https://bapaklapak.000webhostapp.com/gift_code_generator.php)
